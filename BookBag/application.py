@@ -6,6 +6,8 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy.orm import scoped_session, sessionmaker
+from functools import wraps
+
 
 app = Flask(__name__)
 
@@ -26,6 +28,21 @@ if uri.startswith("postgres://"):
 # Set up database
 engine = create_engine(uri)
 db = scoped_session(sessionmaker(bind=engine))
+
+def login_required(f):
+    '''
+    For certain routes making the login required
+    https://flask.palletsprojects.com/en/1.1.x/patterns/viewdecorators/
+    '''
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+
+        # if no user is logged in
+        if not session.get("user_id"):
+            # redirect to login page
+            return redirect("/login")
+        return f(*args, **kwargs)
+    return decorated_function
 
 @app.route("/")
 def index():
@@ -139,6 +156,7 @@ def login():
         return render_template("login.html")
 
 @app.route("/logout")
+@login_required
 def logout():
     '''
     Logout Method
@@ -151,6 +169,7 @@ def logout():
     return redirect("/")
 
 @app.route("/search", methods = ["POST", "GET"])
+@login_required
 def search():
     '''
     Searching for Books
@@ -185,7 +204,10 @@ def search():
     else :
         return render_template("home.html")
 
+
+
 @app.route("/book/<string:isbn>", methods = ["GET", "POST"])
+@login_required
 def book(isbn):
 
     # when the review form is submitted
