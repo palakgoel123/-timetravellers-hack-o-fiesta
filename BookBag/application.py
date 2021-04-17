@@ -184,3 +184,46 @@ def search():
     # GET method renders "home.html" i.e. the search form
     else :
         return render_template("home.html")
+
+@app.route("/book/<string:isbn>", methods = ["GET", "POST"])
+def book(isbn):
+
+    # when the review form is submitted
+    if request.method == "POST":
+
+        # taking the user-id of the currently logged-in user
+        user = session["user_id"]
+
+        # getting the rating and the comment from the uer-submitted form
+        rating = request.form.get('rating')
+        comment = request.form.get('comment')
+
+        # fetching the book-id for the book with the given isbn no.
+        book_id = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn" : isbn}).fetchone()
+        book_id = book_id.id
+
+        # converting the rating into an integer
+        rating = int(rating)
+
+        # inserting the values of rating and the comment given by the user
+        db.execute("INSERT INTO reviews (book_id, user_id, content, ratings) VALUES (:book_id, :user_id, :content, :ratings)",
+        {"book_id" : book_id, "user_id" : user, "content" : comment, "ratings" : rating})
+        db.commit()
+
+        # redirecting to the same function but not through POST request along with the reviews added
+        return redirect("/book/" + isbn)
+
+    else :
+
+        # fetching the book with the given isbn no.
+        book = db.execute("SELECT * FROM books WHERE isbn = :isbn", {"isbn" : isbn}).fetchone()
+
+        #fetching all the reviews for the given book
+        reviews = db.execute("SELECT * FROM reviews WHERE book_id = :book_id ORDER BY ratings DESC limit 5",
+        {"book_id" : book.id}).fetchall()
+
+        # image url for the book
+        img = f"http://covers.openlibrary.org/b/isbn/{isbn}-L.jpg"
+
+        # rendering the bookinfo.html file to diaply the book details along with the respective reviews
+        return render_template("bookinfo.html" , book = book, reviews = reviews, img = img)

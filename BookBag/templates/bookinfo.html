@@ -1,0 +1,198 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  {{ book.title }}
+{% endblock %}
+
+{% block head %}
+  <style>
+
+    h1{
+      margin-top: auto;
+      font-size: 75px;
+      margin-bottom: 10px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    html{
+      background-color: orangered;
+      width: 100%;
+      height: 100%;
+    }
+
+    .container{
+      flex-direction: column;
+      margin-left: 100px;
+      margin-right: 100px;
+      margin-top: 70px;
+      margin-bottom: 0;
+      width: 1000px;
+      background-color: aliceblue;
+      border-radius: 10px;
+      box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.45);
+    }
+
+    .row{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .col{
+      margin-left: 30px;
+      padding-left: 10px;
+      padding-top: 10px;
+      margin-top: 20px;
+      padding-bottom: 55px;
+      height: max-content;
+    }
+
+    h2{
+      font-size: 36px;
+      font-family: 'Parisienne', cursive;
+    }
+
+    img{
+        margin-right: 40px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+
+    button:focus, 
+    textarea:focus{
+      outline: none !important;
+    }
+
+    .review{
+      padding: 25px;
+      margin: 10px;
+    }
+
+    p{
+      font-size: 20px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .body{
+      align-content: center;
+      justify-content: center;
+      display: flex;
+    }
+
+    .review_form{
+      
+      padding: 23px;
+      display: flex;
+      align-content: center;
+      justify-content: center; 
+    }
+
+    .form{
+      border: 2px solid ;
+      border-radius: 5px;
+      font-size: 25px;
+      margin: 0 30px;
+      margin-top: 23px;
+      padding: 1 10px;
+      height: 45px;
+      padding-left: 15px;
+      width: 500px;
+    }
+
+    button{
+      height: 45px;
+      padding: 5px 15px;
+      width: max-content;
+      background-color: black;
+      color: aliceblue;
+      border-radius: 4px;
+      border: none;
+      font-size: 20px;
+      margin: 15px 10px;
+    }
+
+    input [type = number]{
+      border: 2px solid ;
+      border-radius: 4px;
+      height: 30px;
+      font-size: 25px;
+      width: 50px;
+      padding: 10px;
+      text-align: center;  
+    }
+    .column{
+      margin-left: 10px;
+      padding-left: 4px;
+      padding-top: 4px;
+      margin-top: 5px;
+      padding-bottom: 20px;
+      height: max-content;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .ratings{
+      display: flex;
+      font-size: 20px;
+      font-family: 'Roboto', sans-serif;
+      padding: 10px;
+      padding-top: 20px;
+      border-bottom: 2px solid black;
+      margin-left: 50px;
+    }
+
+    .content{
+      padding-left: 10px;
+    }
+
+  </style>
+{% endblock %}
+
+{% block body %}
+<!-- Info about the book -->
+<div class="body">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h1>{{ book.title }}</h1>
+        <h2>{{ book.author }}</h2>
+        <p>Year:  {{ book.year }}</p>
+      </div>
+      <div class="image">
+        <img src="{{ img }}" alt="{{book.title}}">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Review Form -->
+<div class = "body">
+  <div class="container">
+    <div class="review_form">
+      <div class="column">
+        <form id="form" action="{{ url_for('book', isbn = book.isbn) }}" method="post" autocomplete="off">
+          <input type="number" name="rating" min="1" max="5" value="3">
+          <input type="text" name="comment" class="form" placeholder="Your Comments: ">
+          <button>Comment</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Displaying previous reviews -->
+<div class = "body">
+  <div class="container">
+    <div class="review">
+      <h1 style="font-size: 25px;">Reviews: </h1>
+        {% for review in reviews %}
+          <div class="ratings">
+            {% for i in range(review.ratings) %}
+              <span>⭐</span>
+            {% endfor %}
+            <span class="content">{{ review.content }}</span>
+          </div>
+        {% endfor %}
+    </div>
+  </div>  
+</div> 
+{% endblock %}
