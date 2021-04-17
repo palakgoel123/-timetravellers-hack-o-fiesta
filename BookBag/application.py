@@ -149,3 +149,38 @@ def logout():
 
     # rendering the welcome page
     return redirect("/")
+
+@app.route("/search", methods = ["POST", "GET"])
+def search():
+    '''
+    Searching for Books
+    '''
+
+    # POST method allowed for searching
+    if request.method == "POST" :
+
+        # checking if an empty string is submitted
+        if request.form.get('book') is None:
+            return render_template("error.html", message="Cannot search for empty string")
+
+        # adding the '%' symbol for matching the given string with the possible values
+        book = '%' + request.form.get('book') + '%'
+
+        book = book.title()
+
+        # searching for the books matching the input provided (max 16)
+        books = db.execute("SELECT * FROM books WHERE isbn LIKE :book OR title LIKE :book OR author LIKE :book LIMIT 16",
+                            {"book" : book }).fetchall()
+
+        # if no book found
+        if books == None:
+            return render_template("error.html", message = "We could not find a book with that description")
+
+        name = session["user_name"]
+
+        # render the "books.html" to displaythe list of avaliable books
+        return render_template("books.html", books = books, name = name )
+
+    # GET method renders "home.html" i.e. the search form
+    else :
+        return render_template("home.html")
