@@ -1,0 +1,25 @@
+h1{
+    position:absolute;
+    top:250px;
+    left:100px;
+    color:white;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size:50px;
+    cursor:pointer;
+}
+h1:hover{
+    color:rgb(240, 193, 74);
+}
+body{
+   
+    background-repeat: no-repeat ;
+    background-size: 1500px 700px;
+    background-image:url(https://www.healthcarebusinesstoday.com/wp-content/uploads/2019/09/artificial-intelligence.jpg);
+}
+a:link {
+    text-decoration: none;
+  }
+ a:active{
+   
+    text-decoration: underline;
+  }
