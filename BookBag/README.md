@@ -3,7 +3,7 @@
 ![](static/home.png)
 ##
 
-![](static/login.png)
+![](static/register.png)
 ##
 
 ![](static/books.png)
