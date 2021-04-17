@@ -1,0 +1,103 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  WELCOME PAGE
+{% endblock %}
+
+{% block head %}
+  <style> 
+    h1{
+      margin-top: 50px;
+      font-size: 125px;
+      margin-bottom: 10px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    div{
+      display: block;
+    }
+
+    .container{
+      flex-direction: column;
+    }
+
+    .row{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+    
+    .col{
+      margin-left: 50px;
+      padding-left: 30px;
+      padding-top: 50px;
+      margin-top: 100px;
+      padding-bottom: 75px;
+      height: max-content;
+    }
+
+    img{
+        margin-right: 70px;
+        margin-top: 100px;
+    }
+
+    .quote{
+      font-family: 'Roboto', sans-serif;
+      font-size: 30px;
+    }
+
+    button:focus{
+      outline: none !important;
+    }
+
+    .author{
+      font-family: 'Parisienne', cursive;
+      font-size: 25px;
+    }
+
+    .register, .login{
+      border: 2px solid orangered;
+      font-size: 20px;
+      background-color: orangered;
+      padding: 15px;
+      margin-left: 100px;
+      margin: 25px;
+      border-radius: 38px;
+      position: relative;
+      left: 350px;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    a{
+      color: white;
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif;
+    }
+  </style>
+{% endblock %}
+  
+{% block body %}
+  <!-- The welcome page -->
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="head">
+          <h1> The Book Bag</h1>
+        </div>
+        <div class="quote">
+          <p>That's the thing about books. They let you travel without moving your feet. <br><span class="author">~ Jumpha Lahiri</span></p>
+        </div>
+        <!-- buttons for registration and login -->
+        <div class="buttons">
+          <button class="register"> <a href="{{ url_for('register') }}"> Register </a> </button>
+          <button class="login"> <a href="{{ url_for('login') }}"> Sign In </a> </button>
+        </div>
+      </div>
+      <div class="img">
+        <img src="https://image.freepik.com/free-vector/flat-design-world-book-day-concept_52683-35711.jpg" >
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
