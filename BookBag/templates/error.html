@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  ERROR
+{% endblock %}
+
+{% block head %}
+  <style>
+    html{
+      background-color: black;
+    }
+
+    h1{
+      font-family: 'Monsterat', sans-serif;
+      font-size: 200px;
+      text-align: center;
+      padding: 100px 0 0 0;
+      color: aliceblue;
+    }
+
+    h3{
+      font-family: 'Roboto', sans-serif;
+      text-align: center;
+      font-size: 35px;
+      padding: 0;
+      color: aliceblue;
+    }
+  </style>
+{% endblock %}
+
+{% block body %}
+  <!-- Message regarding the cause of the error -->
+  <h1>Oops!!</h1>
+  <h3>{{ message }}</h3>
+
+{% endblock %}
