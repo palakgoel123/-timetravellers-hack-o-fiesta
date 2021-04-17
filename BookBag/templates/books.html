@@ -1,0 +1,153 @@
+{% extends "layout.html" %}
+
+{% block title %}
+  Books
+{% endblock %}
+
+{% block head %}
+  <style>
+    a{
+      text-decoration: none;
+      font-family: 'Roboto', sans-serif;
+    }
+    
+    input:focus{
+      outline: none !important;
+    }
+
+    *{
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+ 
+    nav{
+      background-color: orangered;
+      margin: 0 0;
+      overflow: hidden;
+      width: 100%;
+      height: 100px;
+      top: 0;
+    }
+
+    form{
+      float: left;
+      padding-left: 70px;
+      padding-top: 25px;
+    }
+
+    input{
+      width: 250px;
+      height: 40px;
+      border-radius: 40px;
+      border: none;
+      padding-left: 45px;
+      font-size: 22px;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .icon{
+      padding-left: 13px;
+      position: absolute;
+      padding-top: 12px;
+      min-width: 18px;
+      color: orangered;
+    }
+
+    ul{
+      float: right;
+      padding-right: 50px;
+      list-style-type: none;
+      padding-top: 25px;
+    }
+
+    li{
+      display: inline-block;
+      font-family: 'Roboto', sans-serif;
+      color: aliceblue;
+      padding: 0 10px;
+      font-size: 25px;
+    }
+
+    .content{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: baseline;
+      width: 100%;
+      padding-right: 25px;
+      padding-left: 25px;
+      margin-right: auto;
+      margin-top: 20px;
+      margin-left: auto;
+    }
+
+    @media screen and (max-width: 1000px){
+      .name{
+        display: none;
+      }
+    }
+
+    .item{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 300px;
+      height: 400px;
+      background-color: #fff;
+      background-clip: border-box;
+      border-radius: 25px;
+      margin: 35px;
+      text-align: center;
+      justify-content: space-evenly;
+      box-shadow: 0 5px 15px rgba(17, 6, 0, 0.4);
+    }
+
+    h1 a{
+      font-size: 35px;
+      font-family: 'Monsterrat', sans-serif;
+      color: navy;
+    }
+
+    h2{
+      font-size: 20px;
+      font-family: 'Parisienne', cursive;
+    }
+
+    h3{
+      font-size: 20px;
+      font-family: 'Roboto', sans-serif;
+    } 
+  </style>
+{% endblock %}
+
+{% block body %}
+  <!-- The navigation bar (search bar) -->
+  <nav>
+    <ul>
+      <li class="name">{{ name }}</li>
+      <li class="name">|</li>
+      <a href="{{ url_for('logout') }}"><li>Logout</li></a>
+    </ul>
+      <form class="search" action="{{ url_for ('search') }}" method="post" autocomplete="off">
+        <i class="fa fa-search fa-lg icon" aria-hidden="true"></i>
+        <input type="text" name="book" placeholder="Search for books">
+    </form>
+  </nav>
+
+  <!-- Displaying the books found based on the search query -->
+  <div class="content">
+    {% for book in books %}
+      <div class="item">   
+        <div class="info">
+          <div>
+            <h1><a href="{{ url_for('book', isbn = book.isbn) }}">{{book.title}}</a></h1>
+            <h2>{{ book.author }}</h2>
+            <h3>{{ book.year }}</h3>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
