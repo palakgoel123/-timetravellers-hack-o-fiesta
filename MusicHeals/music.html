@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ==" crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orelega+One&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="side">
+        <img class="ima" src="https://www.capitoltheatrewindsor.ca/wp-content/uploads/music.jpg">
+        <ul>
+            <li><a href="http://127.0.0.1:5500/index.html"><i class="fas fa-home">  HOME</i></a></li>
+            <li><a href="http://127.0.0.1:5500/music.html"><i class="fas fa-music">     MUSIC</i></a></li>
+           
+        </ul>
+    </div>
+    <div class="main">
+        <p id="logo"><i class="fas fa-music" >&ensp;music</i></p>
+        <div class="left">
+            <img id="track_image">
+            <div class="volume">
+                <p id="volume_show">30</p>
+                <i class="fas fa-volume-up" aria-hidden="true" id="volume_icon" onclick="mute_sound()"></i>
+                <input type="range" min="0" max="100" value="30" onchange="volume_change()" id = "volume">
+            </div>
+        </div>
+        <div class="right">
+            <div class="show_song_no">
+                <p id="present">1</p>
+                <p>/</p>
+                <p id="total">5</p>
+            </div>
+            <p id="title">title.mp3</p>
+            <p id="artist">Artist name</p>
+            <div class="middle">
+                <button onclick="previous_song()" id="pre"><i class="fa fa-step-backward"></i></button>
+                <button onclick="justplay()" id="play"><i class="fa fa-play"></i></button>
+                <button onclick="next_song()" id="next"><i class="fa fa-step-forward"></i></button>
+            </div>
+            <div class="duration">
+                <input type="range" min="0" max="100" value="0" id="duration_slider" onchange="change_duration()">
+            </div>
+            <button id="auto" onclick="autoplay_switch()">Auto Play <i class="fas fa-circle-notch"></i></button>
+
+        </div>
+    </div>
+    <script src="play.js"></script>
+</body>
+</html>
